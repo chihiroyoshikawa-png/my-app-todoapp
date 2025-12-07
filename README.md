@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# きょうのタスク - キッズTodoアプリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+小学校2年生向けの楽しくて可愛いタスク管理アプリです。
+ふわふわ煙の「ふわこ」がタスクの完了を応援してくれます！
 
-Currently, two official plugins are available:
+## 主な機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **タスク管理**: 今日やることを追加・完了・削除できます
+- **ふわこキャラクター**: ふわふわした煙の球体キャラクターが応援
+- **祝福アニメーション**: 全タスク完了時に楽しいお祝いエフェクト
+- **進捗バー**: 完了したタスク数が一目でわかる
+- **テンプレート機能**: 毎日繰り返すタスクを登録できます
+- **データ保存**: LocalStorageでデータを保存（オフライン動作可能）
+- **レスポンシブデザイン**: スマホ・タブレット・PCで快適に使えます
 
-## React Compiler
+## 技術スタック
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - UIライブラリ
+- **TypeScript** - 型安全な開発
+- **Vite** - 高速な開発環境
+- **CSS3** - アニメーション・グラデーション
 
-## Expanding the ESLint configuration
+## セットアップ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 必要なもの
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18以上
+- npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### インストール
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 依存パッケージのインストール
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 開発サーバーの起動
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+ブラウザで http://localhost:5173 を開いてください。
+
+### ビルド
+
+```bash
+npm run build
+```
+
+ビルドされたファイルは `dist` ディレクトリに出力されます。
+
+### プレビュー
+
+```bash
+npm run preview
+```
+
+ビルドしたアプリをローカルでプレビューできます。
+
+## プロジェクト構成
+
+```
+src/
+├── components/          # Reactコンポーネント
+│   ├── Fuwako.tsx      # ふわこキャラクター
+│   ├── TaskList.tsx    # タスクリスト
+│   ├── AddTaskForm.tsx # タスク追加フォーム
+│   ├── ConfirmDialog.tsx # 確認ダイアログ
+│   ├── TemplateManager.tsx # テンプレート管理
+│   └── Celebration.tsx # 祝福アニメーション
+├── utils/
+│   └── storage.ts      # LocalStorage管理
+├── types.ts            # 型定義
+├── App.tsx             # メインアプリ
+├── App.css             # アプリスタイル
+├── index.css           # グローバルスタイル
+└── main.tsx            # エントリーポイント
+```
+
+## 使い方
+
+1. **タスクを確認**: アプリを開くと今日のタスクが表示されます
+2. **タスクを完了**: タスクをクリックして完了マークをつけます
+3. **タスクを追加**: 「＋ タスクをついかする」ボタンから新しいタスクを追加
+4. **タスクを削除**: ゴミ箱アイコンをクリックして削除
+5. **テンプレート編集**: 「⚙️ テンプレートをへんしゅうする」で毎日のタスクを設定
+6. **全完了祝福**: すべてのタスクを完了するとお祝いアニメーション！
+
+## デザインコンセプト
+
+- **対象年齢**: 小学校2年生（7-8歳児）
+- **読みやすさ**: 大きな文字、ひらがな中心
+- **楽しさ**: カラフルな色使い、アニメーション
+- **直感性**: タップだけで操作できるシンプルなUI
+- **達成感**: タスク完了時のポジティブなフィードバック
+
+## ライセンス
+
+MIT
