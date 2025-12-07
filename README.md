@@ -1,100 +1,73 @@
-# プロジェクト名
+# React + TypeScript + Vite
 
-<!-- TODO: プロジェクトの簡単な説明を1-2文で記入 -->
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🎯 プロジェクト概要
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-<!-- TODO: 目的を記入 -->
+## React Compiler
 
-### 主な機能
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-<!-- TODO: 実装する機能を記入 -->
--
--
--
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 🛠️ 技術スタック
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-- **フロントエンド**: Next.js 14 (App Router), TypeScript, Tailwind CSS
-- **データ管理**: <!-- TODO: localStorage / Supabase / Firebase 等 -->
-- **デプロイ**: Vercel
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
----
-
-## 🚀 セットアップ
-
-### 前提条件
-
-- Node.js 18以上
-- npm
-
-### インストール
-
-```bash
-npm install
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### 環境変数
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-cp .env.example .env.local
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-`.env.local` を編集して必要な値を設定。
-
-### 開発サーバー起動
-
-```bash
-npm run dev
-```
-
-[http://localhost:3000](http://localhost:3000) で確認。
-
----
-
-## 🌐 デプロイ
-
-```bash
-git add .
-git commit -m "Update"
-git push origin main
-```
-
-Vercel が自動でデプロイ。
-
----
-
-## 📂 ディレクトリ構成
-
-```text
-.
-├── app/                    # Next.js App Router
-├── components/             # Reactコンポーネント
-├── lib/                    # ユーティリティ
-├── types/                  # TypeScript型定義
-├── specs/                  # Kiro式仕様書（/kiroで生成）
-├── .claude/                # Claude Code設定
-│   ├── CLAUDE.md
-│   └── commands/
-└── .env.local              # 環境変数（Git管理外）
-```
-
----
-
-## 📖 カスタムコマンド
-
-| コマンド | 説明 |
-|---------|------|
-| `/kiro` | Kiro式仕様書を生成 |
-| `/commit` | コミット支援 |
-| `/deploy` | デプロイ前チェック |
-
----
-
-## 📄 ライセンス
-
-MIT License
