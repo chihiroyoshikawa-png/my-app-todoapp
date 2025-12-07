@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import './Fuwako.css';
 
+export type FuwakoMood = 'normal' | 'cheering' | 'happy' | 'super-happy';
+
 interface FuwakoProps {
-  isAllCompleted: boolean;
+  mood?: FuwakoMood;
   message?: string;
 }
 
-const Fuwako = ({ isAllCompleted, message }: FuwakoProps) => {
+const Fuwako = ({ mood = 'normal', message }: FuwakoProps) => {
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -21,11 +23,11 @@ const Fuwako = ({ isAllCompleted, message }: FuwakoProps) => {
 
   return (
     <div className="fuwako-container">
-      <div className={`fuwako ${isAllCompleted ? 'fuwako-happy' : ''}`}>
+      <div className={`fuwako fuwako-${mood}`}>
         <div className="fuwako-body">
-          <div className="fuwako-eye left"></div>
-          <div className="fuwako-eye right"></div>
-          <div className={`fuwako-mouth ${isAllCompleted ? 'happy' : ''}`}></div>
+          <div className={`fuwako-eye left ${mood}`}></div>
+          <div className={`fuwako-eye right ${mood}`}></div>
+          <div className={`fuwako-mouth ${mood}`}></div>
         </div>
         <div className="fuwako-glow"></div>
       </div>

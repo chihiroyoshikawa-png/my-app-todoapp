@@ -26,13 +26,30 @@
   box-shadow:
     0 0 30px rgba(142, 197, 252, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
+/* Normal mood - default calm state */
+.fuwako-normal .fuwako-body {
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+/* Cheering mood - encouraging state */
+.fuwako-cheering .fuwako-body {
+  background: linear-gradient(135deg, #ffd6a5 0%, #fdcb6e 100%);
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Happy mood - task completed */
 .fuwako-happy .fuwako-body {
-  background: linear-gradient(135deg, #ffd6a5 0%, #ffadad 50%, #ffd6ff 100%);
+  background: linear-gradient(135deg, #ffadad 0%, #ffd6a5 100%);
   animation: pulse 0.5s ease-in-out;
-  filter: blur(2px);
+}
+
+/* Super happy mood - all tasks completed */
+.fuwako-super-happy .fuwako-body {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffadad 50%, #ffd6ff 100%);
+  animation: superPulse 0.8s ease-in-out infinite;
 }
 
 .fuwako-glow {
@@ -55,6 +72,7 @@
   border-radius: 50%;
   top: 40%;
   filter: blur(0);
+  transition: all 0.3s ease;
 }
 
 .fuwako-eye.left {
@@ -63,6 +81,33 @@
 
 .fuwako-eye.right {
   right: 35%;
+}
+
+/* Normal eyes - calm */
+.fuwako-eye.normal {
+  width: 8px;
+  height: 8px;
+}
+
+/* Cheering eyes - sparkle */
+.fuwako-eye.cheering {
+  width: 10px;
+  height: 10px;
+  animation: sparkle 1s ease-in-out infinite;
+}
+
+/* Happy eyes - bright */
+.fuwako-eye.happy {
+  width: 9px;
+  height: 9px;
+}
+
+/* Super happy eyes - stars */
+.fuwako-eye.super-happy {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ffeb3b 0%, #333 70%);
+  animation: twinkle 0.5s ease-in-out infinite;
 }
 
 .fuwako-mouth {
@@ -74,12 +119,35 @@
   border-radius: 0 0 20px 20px;
   top: 55%;
   filter: blur(0);
+  transition: all 0.3s ease;
 }
 
+/* Normal mouth - small smile */
+.fuwako-mouth.normal {
+  width: 20px;
+  height: 10px;
+}
+
+/* Cheering mouth - encouraging smile */
+.fuwako-mouth.cheering {
+  width: 25px;
+  height: 12px;
+  border-radius: 0 0 25px 25px;
+}
+
+/* Happy mouth - big smile */
 .fuwako-mouth.happy {
   width: 30px;
   height: 15px;
   border-radius: 0 0 30px 30px;
+}
+
+/* Super happy mouth - biggest smile */
+.fuwako-mouth.super-happy {
+  width: 35px;
+  height: 18px;
+  border-radius: 0 0 35px 35px;
+  border-width: 3px;
 }
 
 .fuwako-message {
@@ -126,6 +194,52 @@
   }
   50% {
     transform: scale(1.1);
+  }
+}
+
+@keyframes superPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15) rotate(2deg);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.15) rotate(-2deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3) rotate(180deg);
   }
 }
 

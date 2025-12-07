@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Fuwako from './components/Fuwako';
+import Fuwako, { FuwakoMood } from './components/Fuwako';
 import TaskList from './components/TaskList';
 import AddTaskForm from './components/AddTaskForm';
 import ConfirmDialog from './components/ConfirmDialog';
@@ -16,6 +16,7 @@ function App() {
   const [showTemplateManager, setShowTemplateManager] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [fuwakoMessage, setFuwakoMessage] = useState<string | undefined>();
+  const [fuwakoMood, setFuwakoMood] = useState<FuwakoMood>('normal');
   const [showCelebration, setShowCelebration] = useState(false);
   const [celebrationMessage, setCelebrationMessage] = useState('');
 
@@ -42,10 +43,16 @@ function App() {
       if (task.id === taskId) {
         const newCompleted = !task.completed;
 
-        // 完了時にメッセージ表示
+        // 完了時にメッセージ表示とふわこの表情変更
         if (newCompleted) {
           const message = TASK_COMPLETE_MESSAGES[Math.floor(Math.random() * TASK_COMPLETE_MESSAGES.length)];
           setFuwakoMessage(message);
+          setFuwakoMood('happy');
+
+          // 2秒後に通常の表情に戻す
+          setTimeout(() => {
+            setFuwakoMood('normal');
+          }, 2000);
         }
 
         return { ...task, completed: newCompleted };
@@ -63,10 +70,12 @@ function App() {
       setCelebrationMessage(message);
       setShowCelebration(true);
       setFuwakoMessage(message);
+      setFuwakoMood('super-happy');
 
       // 5秒後に祝福画面を閉じる
       setTimeout(() => {
         setShowCelebration(false);
+        setFuwakoMood('normal');
       }, 5000);
     }
   };
@@ -110,6 +119,18 @@ function App() {
   const totalCount = tasks.length;
   const isAllCompleted = totalCount > 0 && completedCount === totalCount;
 
+  // 進捗に応じたふわこの表情（応援モード）
+  useEffect(() => {
+    if (totalCount > 0 && !isAllCompleted && fuwakoMood === 'normal') {
+      const progress = completedCount / totalCount;
+
+      // 50%以上完了したら応援モード
+      if (progress >= 0.5) {
+        setFuwakoMood('cheering');
+      }
+    }
+  }, [completedCount, totalCount, isAllCompleted, fuwakoMood]);
+
   // 今日の日付を表示用にフォーマット
   const formatDate = () => {
     const today = new Date();
@@ -128,7 +149,7 @@ function App() {
       </header>
 
       <main className="app-main">
-        <Fuwako isAllCompleted={isAllCompleted} message={fuwakoMessage} />
+        <Fuwako mood={fuwakoMood} message={fuwakoMessage} />
 
         {totalCount > 0 && (
           <div className="progress-bar-container">
