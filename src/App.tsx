@@ -9,6 +9,7 @@ import WeeklyProgress from './components/WeeklyProgress';
 import { SkillGrowth } from './components/SkillGrowth';
 import { ShootingStars } from './components/ShootingStars';
 import { TwinklingStars } from './components/TwinklingStars';
+import { TaskSuggestion } from './components/TaskSuggestion';
 import type { Task, TemplateTask, Skill, SkillType } from './types';
 import { CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
 import {
@@ -249,6 +250,10 @@ function App() {
               <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
                 ＋ やることをついかする
               </button>
+              <TaskSuggestion
+                existingTasks={tasks.map(t => t.text)}
+                onAddSuggestion={(text) => handleAddTask(text, '✨')}
+              />
               <button
                 className="action-button template-button"
                 onClick={() => setShowTemplateManager(true)}
