@@ -170,16 +170,16 @@
 .bird-message-bubble {
   font-family: 'Lato', sans-serif;
   backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.25);
-  padding: 0.7rem 1.2rem;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.8rem 1.4rem;
   border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
   box-shadow:
-    0 4px 15px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   animation: messageFadeIn 0.5s ease;
   text-align: center;
   letter-spacing: 0.02em;
@@ -335,7 +335,7 @@
   }
 
   .bird-message-bubble {
-    font-size: 0.85rem;
-    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    padding: 0.7rem 1.2rem;
   }
 }
