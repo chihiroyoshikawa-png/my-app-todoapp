@@ -8,6 +8,7 @@ import Celebration from './components/Celebration';
 import WeeklyProgress from './components/WeeklyProgress';
 import { SkillGrowth } from './components/SkillGrowth';
 import { ShootingStars } from './components/ShootingStars';
+import { TwinklingStars } from './components/TwinklingStars';
 import type { Task, TemplateTask, Skill, SkillType } from './types';
 import { CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
 import {
@@ -193,6 +194,7 @@ function App() {
 
   return (
     <div className="app">
+      <TwinklingStars />
       <ShootingStars />
       <header className="app-header">
         <h1 className="app-title">MY TASK</h1>
