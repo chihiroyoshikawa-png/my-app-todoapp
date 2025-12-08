@@ -16,8 +16,8 @@ export const ShootingStars = () => {
     const createStar = () => {
       const newStar: Star = {
         id: Date.now() + Math.random(),
-        top: Math.random() * 40, // 画面上部40%の範囲
-        left: Math.random() * 80 + 10, // 10%〜90%の範囲
+        top: Math.random() * 70, // 画面上部70%の範囲（上から下まで広く）
+        left: Math.random() * 50 + 50, // 50%〜100%の範囲（右側から出現）
         delay: 0,
         duration: 0.8 + Math.random() * 0.4, // 0.8〜1.2秒
       };
