@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
 export const config = {
   runtime: 'edge',
@@ -12,7 +12,7 @@ export default async function handler(req: Request) {
     });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'API key not configured' }), {
       status: 500,
@@ -23,7 +23,7 @@ export default async function handler(req: Request) {
   try {
     const { dayOfWeek, month, existingTasks } = await req.json();
 
-    const client = new Anthropic({ apiKey });
+    const client = new OpenAI({ apiKey });
 
     const weekdays = ['にちようび', 'げつようび', 'かようび', 'すいようび', 'もくようび', 'きんようび', 'どようび'];
     const dayName = weekdays[dayOfWeek];
@@ -46,15 +46,13 @@ ${existingTasksText}
 
 提案だけを出力してください（説明不要）。`;
 
-    const message = await client.messages.create({
-      model: 'claude-3-haiku-20240307',
+    const completion = await client.chat.completions.create({
+      model: 'gpt-4o-mini',
       max_tokens: 50,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const suggestion = message.content[0].type === 'text'
-      ? message.content[0].text.trim()
-      : '';
+    const suggestion = completion.choices[0]?.message?.content?.trim() || '';
 
     return new Response(JSON.stringify({ suggestion }), {
       status: 200,
