@@ -1,30 +1,47 @@
 import { useState, useEffect } from 'react';
-import Fuwako, { FuwakoMood } from './components/Fuwako';
+import Bird, { type BirdMood } from './components/Bird';
 import TaskList from './components/TaskList';
 import AddTaskForm from './components/AddTaskForm';
 import ConfirmDialog from './components/ConfirmDialog';
 import TemplateManager from './components/TemplateManager';
 import Celebration from './components/Celebration';
-import { Task, TemplateTask, CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
-import { loadData, saveData, getTodayTasks, saveTodayTasks } from './utils/storage';
+import WeeklyProgress from './components/WeeklyProgress';
+import { SkillGrowth } from './components/SkillGrowth';
+import type { Task, TemplateTask, Skill, SkillType } from './types';
+import { CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
+import {
+  loadData,
+  saveData,
+  getTodayTasks,
+  saveTodayTasks,
+  getWeeklyProgress,
+  updateSkillsOnTaskComplete,
+  updateChallengeSkill,
+  updateOrganizationSkill
+} from './utils/storage';
 import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [templates, setTemplates] = useState<TemplateTask[]>([]);
+  const [skills, setSkills] = useState<{ [key in SkillType]: Skill }>({} as any);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showTemplateManager, setShowTemplateManager] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
-  const [fuwakoMessage, setFuwakoMessage] = useState<string | undefined>();
-  const [fuwakoMood, setFuwakoMood] = useState<FuwakoMood>('normal');
+  const [birdMessage, setBirdMessage] = useState<string | undefined>();
+  const [birdMood, setBirdMood] = useState<BirdMood>('normal');
   const [showCelebration, setShowCelebration] = useState(false);
   const [celebrationMessage, setCelebrationMessage] = useState('');
+  const [weeklyData, setWeeklyData] = useState<boolean[]>([false, false, false, false, false, false, false]);
+  const [currentTab, setCurrentTab] = useState<'tasks' | 'skills'>('tasks');
 
   // 初期データ読み込み
   useEffect(() => {
     const data = loadData();
     setTemplates(data.templates);
     setTasks(getTodayTasks(data));
+    setWeeklyData(getWeeklyProgress(data));
+    setSkills(data.skills);
   }, []);
 
   // データ保存
@@ -35,6 +52,9 @@ function App() {
       updatedData.templates = newTemplates;
     }
     saveData(updatedData);
+
+    // 週間データを更新
+    setWeeklyData(getWeeklyProgress(updatedData));
   };
 
   // タスク完了/未完了の切り替え
@@ -43,15 +63,15 @@ function App() {
       if (task.id === taskId) {
         const newCompleted = !task.completed;
 
-        // 完了時にメッセージ表示とふわこの表情変更
+        // 完了時にメッセージ表示と鳥の表情変更
         if (newCompleted) {
           const message = TASK_COMPLETE_MESSAGES[Math.floor(Math.random() * TASK_COMPLETE_MESSAGES.length)];
-          setFuwakoMessage(message);
-          setFuwakoMood('happy');
+          setBirdMessage(message);
+          setBirdMood('happy');
 
           // 2秒後に通常の表情に戻す
           setTimeout(() => {
-            setFuwakoMood('normal');
+            setBirdMood('normal');
           }, 2000);
         }
 
@@ -61,21 +81,35 @@ function App() {
     });
 
     setTasks(updatedTasks);
-    saveCurrentData(updatedTasks);
 
     // 全タスク完了チェック
     const allCompleted = updatedTasks.length > 0 && updatedTasks.every((task) => task.completed);
+
+    // スキルを更新
+    let data = loadData();
+    data = saveTodayTasks(data, updatedTasks);
+    data = updateSkillsOnTaskComplete(data, allCompleted);
+    saveData(data);
+    setSkills(data.skills);
+
     if (allCompleted) {
-      const message = CELEBRATION_MESSAGES[Math.floor(Math.random() * CELEBRATION_MESSAGES.length)];
+      // 金曜日かどうかをチェック
+      const today = new Date();
+      const isFriday = today.getDay() === 5; // 5 = 金曜日
+
+      const message = isFriday
+        ? 'やったね、あしたはお休みだ！'
+        : CELEBRATION_MESSAGES[Math.floor(Math.random() * CELEBRATION_MESSAGES.length)];
+
       setCelebrationMessage(message);
       setShowCelebration(true);
-      setFuwakoMessage(message);
-      setFuwakoMood('super-happy');
+      setBirdMessage(message);
+      setBirdMood('super-happy');
 
       // 5秒後に祝福画面を閉じる
       setTimeout(() => {
         setShowCelebration(false);
-        setFuwakoMood('normal');
+        setBirdMood('normal');
       }, 5000);
     }
   };
@@ -91,7 +125,13 @@ function App() {
     };
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
-    saveCurrentData(updatedTasks);
+
+    // チャレンジスキルを更新
+    let data = loadData();
+    data = saveTodayTasks(data, updatedTasks);
+    data = updateChallengeSkill(data);
+    saveData(data);
+    setSkills(data.skills);
   };
 
   // タスク削除
@@ -103,7 +143,14 @@ function App() {
     if (deleteConfirm) {
       const updatedTasks = tasks.filter((task) => task.id !== deleteConfirm);
       setTasks(updatedTasks);
-      saveCurrentData(updatedTasks);
+
+      // 整理整頓スキルを更新
+      let data = loadData();
+      data = saveTodayTasks(data, updatedTasks);
+      data = updateOrganizationSkill(data);
+      saveData(data);
+      setSkills(data.skills);
+
       setDeleteConfirm(null);
     }
   };
@@ -119,17 +166,19 @@ function App() {
   const totalCount = tasks.length;
   const isAllCompleted = totalCount > 0 && completedCount === totalCount;
 
-  // 進捗に応じたふわこの表情（応援モード）
+  // 進捗に応じた鳥の表情（応援モード）
   useEffect(() => {
-    if (totalCount > 0 && !isAllCompleted && fuwakoMood === 'normal') {
+    if (totalCount > 0 && !isAllCompleted) {
       const progress = completedCount / totalCount;
 
-      // 50%以上完了したら応援モード
-      if (progress >= 0.5) {
-        setFuwakoMood('cheering');
+      // 50%以上完了したら応援モード、それ以下なら通常モード
+      if (progress >= 0.5 && birdMood !== 'happy' && birdMood !== 'super-happy') {
+        setBirdMood('cheering');
+      } else if (progress < 0.5 && birdMood === 'cheering') {
+        setBirdMood('normal');
       }
     }
-  }, [completedCount, totalCount, isAllCompleted, fuwakoMood]);
+  }, [completedCount, totalCount, isAllCompleted, birdMood]);
 
   // 今日の日付を表示用にフォーマット
   const formatDate = () => {
@@ -144,12 +193,31 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">きょうのタスク</h1>
+        <h1 className="app-title">MY TASK</h1>
         <p className="app-date">{formatDate()}</p>
       </header>
 
+      <nav className="tab-navigation">
+        <button
+          className={`tab-button ${currentTab === 'tasks' ? 'active' : ''}`}
+          onClick={() => setCurrentTab('tasks')}
+        >
+          📋 タスク
+        </button>
+        <button
+          className={`tab-button ${currentTab === 'skills' ? 'active' : ''}`}
+          onClick={() => setCurrentTab('skills')}
+        >
+          🌟 せいちょう
+        </button>
+      </nav>
+
       <main className="app-main">
-        <Fuwako mood={fuwakoMood} message={fuwakoMessage} />
+        {currentTab === 'tasks' ? (
+          <>
+            <WeeklyProgress weeklyData={weeklyData} />
+
+            <Bird mood={birdMood} message={birdMessage} />
 
         {totalCount > 0 && (
           <div className="progress-bar-container">
@@ -173,17 +241,21 @@ function App() {
           onDeleteTask={handleDeleteTask}
         />
 
-        <div className="action-buttons">
-          <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
-            ＋ タスクをついかする
-          </button>
-          <button
-            className="action-button template-button"
-            onClick={() => setShowTemplateManager(true)}
-          >
-            ⚙️ テンプレートをへんしゅうする
-          </button>
-        </div>
+            <div className="action-buttons">
+              <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
+                ＋ タスクをついかする
+              </button>
+              <button
+                className="action-button template-button"
+                onClick={() => setShowTemplateManager(true)}
+              >
+                ⚙️ テンプレートをへんしゅうする
+              </button>
+            </div>
+          </>
+        ) : (
+          <SkillGrowth skills={skills} />
+        )}
       </main>
 
       {showAddForm && (

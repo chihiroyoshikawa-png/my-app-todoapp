@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cache Clear</title>
+</head>
+<body>
+    <h1>ブラウザのDevToolsを開いて、以下を実行してください：</h1>
+    <pre>
+// 1. Console タブで以下を実行
+localStorage.clear();
+sessionStorage.clear();
+
+// 2. Application タブ → Cache Storage → すべて削除
+
+// 3. その後、このページを閉じて http://localhost:5174/ を開く
+    </pre>
+    <script>
+        console.log('LocalStorage cleared');
+        localStorage.clear();
+        sessionStorage.clear();
+        setTimeout(() => {
+            window.location.href = 'http://localhost:5174/';
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-import { AppData, TemplateTask, Task } from '../types';
+import type { AppData, TemplateTask, Task, Skill, SkillType } from '../types';
 
 const STORAGE_KEY = 'kids-todo-app-data';
 
@@ -23,6 +23,7 @@ export const loadData = (): AppData => {
   return {
     templates: getDefaultTemplates(),
     dailyTasks: {},
+    skills: getDefaultSkills(),
   };
 };
 
@@ -38,11 +39,63 @@ export const saveData = (data: AppData): void => {
 // デフォルトのテンプレートタスク
 const getDefaultTemplates = (): TemplateTask[] => {
   return [
-    { id: '1', text: 'はをみがく', emoji: '🦷' },
-    { id: '2', text: 'しゅくだいをする', emoji: '📝' },
-    { id: '3', text: 'べんきょうどうぐをじゅんびする', emoji: '🎒' },
-    { id: '4', text: 'おてつだいをする', emoji: '✨' },
+    { id: '1', text: 'おんどく・けいさんカード', emoji: '📖' },
+    { id: '2', text: 'さんすうドリル／プリント', emoji: '📝' },
+    { id: '3', text: 'かんじノート／プリント', emoji: '✏️' },
+    { id: '4', text: 'くもん', emoji: '📚' },
+    { id: '5', text: 'じかんわり', emoji: '📅' },
+    { id: '6', text: 'あしたのもちものを入れる', emoji: '🎒' },
+    { id: '7', text: 'えんぴつをけずる', emoji: '✂️' },
+    { id: '8', text: 'あしたのふく', emoji: '👕' },
+    { id: '9', text: 'かにさんTシャツを入れる', emoji: '🦀' },
+    { id: '10', text: 'ピアノのれんしゅう', emoji: '🎹' },
   ];
+};
+
+// デフォルトのスキルデータ
+const getDefaultSkills = (): { [key in SkillType]: Skill } => {
+  return {
+    persistence: {
+      id: 'persistence',
+      name: 'がんばりやさん',
+      emoji: '🔥',
+      level: 1,
+      points: 0,
+      maxPoints: 10,
+    },
+    completion: {
+      id: 'completion',
+      name: 'やりきりスター',
+      emoji: '⭐',
+      level: 1,
+      points: 0,
+      maxPoints: 10,
+    },
+    timeManagement: {
+      id: 'timeManagement',
+      name: 'じかんまもる',
+      emoji: '⏰',
+      level: 1,
+      points: 0,
+      maxPoints: 10,
+    },
+    organization: {
+      id: 'organization',
+      name: 'せいりせいとん',
+      emoji: '✨',
+      level: 1,
+      points: 0,
+      maxPoints: 10,
+    },
+    challenge: {
+      id: 'challenge',
+      name: 'チャレンジャー',
+      emoji: '🚀',
+      level: 1,
+      points: 0,
+      maxPoints: 10,
+    },
+  };
 };
 
 // テンプレートから今日のタスクを生成
@@ -73,6 +126,139 @@ export const saveTodayTasks = (data: AppData, tasks: Task[]): AppData => {
     dailyTasks: {
       ...data.dailyTasks,
       [today]: tasks,
+    },
+  };
+};
+
+// 週の開始日（日曜日）を取得
+const getWeekStart = (date: Date): Date => {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day; // 日曜日を週の始まりとする
+  return new Date(d.setDate(diff));
+};
+
+// 今週の7日間の達成状況を取得
+export const getWeeklyProgress = (data: AppData): boolean[] => {
+  const weekStart = getWeekStart(new Date());
+  const weeklyData: boolean[] = [];
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(weekStart);
+    date.setDate(weekStart.getDate() + i);
+    const dateString = date.toISOString().split('T')[0];
+
+    const dayTasks = data.dailyTasks[dateString];
+
+    // タスクが存在し、すべて完了している場合はtrue
+    if (dayTasks && dayTasks.length > 0) {
+      const allCompleted = dayTasks.every(task => task.completed);
+      weeklyData.push(allCompleted);
+    } else {
+      // タスクがない場合はfalse
+      weeklyData.push(false);
+    }
+  }
+
+  return weeklyData;
+};
+
+// スキルにポイントを追加し、必要に応じてレベルアップ
+export const addSkillPoints = (
+  skill: Skill,
+  points: number
+): { skill: Skill; leveledUp: boolean } => {
+  const newPoints = skill.points + points;
+  const currentLevel = skill.level;
+
+  // レベル5が最大
+  if (currentLevel >= 5) {
+    return {
+      skill: { ...skill, points: skill.maxPoints },
+      leveledUp: false,
+    };
+  }
+
+  // レベルアップ判定
+  if (newPoints >= skill.maxPoints) {
+    const newLevel = Math.min(currentLevel + 1, 5);
+    const nextMaxPoints = skill.maxPoints + 5; // レベルごとに必要ポイントが5増える
+
+    return {
+      skill: {
+        ...skill,
+        level: newLevel,
+        points: newPoints - skill.maxPoints,
+        maxPoints: nextMaxPoints,
+      },
+      leveledUp: true,
+    };
+  }
+
+  return {
+    skill: { ...skill, points: newPoints },
+    leveledUp: false,
+  };
+};
+
+// タスク完了時にスキルを更新
+export const updateSkillsOnTaskComplete = (
+  data: AppData,
+  isAllComplete: boolean
+): AppData => {
+  const now = new Date();
+  const hour = now.getHours();
+
+  // 継続力: タスクを完了すると常にポイント獲得
+  const persistenceResult = addSkillPoints(data.skills.persistence, 1);
+
+  // 完遂力: 全タスク完了時にポイント獲得
+  let completionResult = { skill: data.skills.completion, leveledUp: false };
+  if (isAllComplete) {
+    completionResult = addSkillPoints(data.skills.completion, 3);
+  }
+
+  // 時間管理: 午前中（12時前）に完了するとボーナスポイント
+  let timeManagementResult = { skill: data.skills.timeManagement, leveledUp: false };
+  if (hour < 12) {
+    timeManagementResult = addSkillPoints(data.skills.timeManagement, 2);
+  } else if (hour < 18) {
+    timeManagementResult = addSkillPoints(data.skills.timeManagement, 1);
+  }
+
+  return {
+    ...data,
+    skills: {
+      ...data.skills,
+      persistence: persistenceResult.skill,
+      completion: completionResult.skill,
+      timeManagement: timeManagementResult.skill,
+    },
+  };
+};
+
+// 新規タスク追加時にチャレンジスキルを更新
+export const updateChallengeSkill = (data: AppData): AppData => {
+  const challengeResult = addSkillPoints(data.skills.challenge, 1);
+
+  return {
+    ...data,
+    skills: {
+      ...data.skills,
+      challenge: challengeResult.skill,
+    },
+  };
+};
+
+// タスク削除時に整理整頓スキルを更新
+export const updateOrganizationSkill = (data: AppData): AppData => {
+  const organizationResult = addSkillPoints(data.skills.organization, 1);
+
+  return {
+    ...data,
+    skills: {
+      ...data.skills,
+      organization: organizationResult.skill,
     },
   };
 };

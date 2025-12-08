@@ -14,11 +14,27 @@ export interface TemplateTask {
   emoji?: string;
 }
 
+// スキルの型定義
+export interface Skill {
+  id: string;
+  name: string;
+  emoji: string;
+  level: number; // 1-5
+  points: number; // 現在のポイント
+  maxPoints: number; // レベルアップに必要なポイント
+}
+
+// スキルタイプ
+export type SkillType = 'persistence' | 'completion' | 'timeManagement' | 'organization' | 'challenge';
+
 // データ保存用の型定義
 export interface AppData {
   templates: TemplateTask[];
   dailyTasks: {
     [date: string]: Task[];
+  };
+  skills: {
+    [key in SkillType]: Skill;
   };
 }
 

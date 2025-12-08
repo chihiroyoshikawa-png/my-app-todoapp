@@ -3,52 +3,71 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 
 .fuwako {
   position: relative;
-  width: 120px;
-  height: 120px;
-  animation: float 3s ease-in-out infinite;
+  width: 130px;
+  height: 130px;
+  animation: float 3s ease-in-out infinite, squish 2s ease-in-out infinite;
 }
 
 .fuwako-body {
   position: relative;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.85) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(240, 245, 255, 0.9) 0%, rgba(230, 240, 255, 0.7) 60%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: blur(2px);
   box-shadow:
-    0 0 30px rgba(142, 197, 252, 0.5),
-    inset 0 0 20px rgba(255, 255, 255, 0.5);
-  transition: all 0.5s ease;
+    0 10px 30px rgba(200, 220, 240, 0.4),
+    0 20px 50px rgba(180, 200, 230, 0.3),
+    inset -8px -8px 20px rgba(200, 215, 235, 0.3),
+    inset 8px 8px 25px rgba(255, 255, 255, 0.9),
+    inset 0 0 40px rgba(255, 255, 255, 0.6);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: jiggle 4s ease-in-out infinite;
+  filter: blur(1px);
 }
 
 /* Normal mood - default calm state */
 .fuwako-normal .fuwako-body {
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.85) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(240, 245, 255, 0.9) 0%, rgba(230, 240, 255, 0.7) 60%);
 }
 
 /* Cheering mood - encouraging state */
 .fuwako-cheering .fuwako-body {
-  background: linear-gradient(135deg, #ffd6a5 0%, #fdcb6e 100%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 250, 240, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 65% 35%, rgba(255, 240, 220, 0.85) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 245, 230, 0.9) 0%, rgba(255, 235, 210, 0.7) 60%);
   animation: bounce 1s ease-in-out infinite;
 }
 
 /* Happy mood - task completed */
 .fuwako-happy .fuwako-body {
-  background: linear-gradient(135deg, #ffadad 0%, #ffd6a5 100%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 245, 245, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 65% 35%, rgba(255, 235, 240, 0.85) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 240, 245, 0.9) 0%, rgba(255, 220, 230, 0.7) 60%);
   animation: pulse 0.5s ease-in-out;
 }
 
 /* Super happy mood - all tasks completed */
 .fuwako-super-happy .fuwako-body {
-  background: linear-gradient(135deg, #ffd6a5 0%, #ffadad 50%, #ffd6ff 100%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 250, 255, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 65% 35%, rgba(255, 240, 250, 0.85) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 245, 255, 0.9) 0%, rgba(255, 230, 245, 0.7) 60%);
   animation: superPulse 0.8s ease-in-out infinite;
 }
 
@@ -66,13 +85,16 @@
 
 .fuwako-eye {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #333;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 35% 35%, #505050 0%, #303030 60%, #1a1a1a 100%);
   border-radius: 50%;
   top: 40%;
-  filter: blur(0);
   transition: all 0.3s ease;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.5),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.2);
 }
 
 .fuwako-eye.left {
@@ -85,28 +107,28 @@
 
 /* Normal eyes - calm */
 .fuwako-eye.normal {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 /* Cheering eyes - sparkle */
 .fuwako-eye.cheering {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   animation: sparkle 1s ease-in-out infinite;
 }
 
 /* Happy eyes - bright */
 .fuwako-eye.happy {
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
 }
 
 /* Super happy eyes - stars */
 .fuwako-eye.super-happy {
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle, #ffeb3b 0%, #333 70%);
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #ffeb3b 0%, #303030 70%);
   animation: twinkle 0.5s ease-in-out infinite;
 }
 
@@ -114,12 +136,14 @@
   position: absolute;
   width: 20px;
   height: 10px;
-  border: 2px solid #333;
+  border: 2.5px solid #303030;
   border-top: none;
   border-radius: 0 0 20px 20px;
   top: 55%;
-  filter: blur(0);
   transition: all 0.3s ease;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Normal mouth - small smile */
@@ -151,19 +175,24 @@
 }
 
 .fuwako-message {
-  margin-top: 1rem;
+  margin-top: 0.7rem;
   animation: fadeInUp 0.3s ease;
 }
 
 .message-bubble {
-  background: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 20px;
-  font-size: 1.2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fef5f8 100%);
+  padding: 0.6rem 1rem;
+  border-radius: 16px;
+  font-size: 0.95rem;
   font-weight: bold;
   color: #ff6b9d;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(255, 107, 157, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
   position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .message-bubble::before {
@@ -185,6 +214,36 @@
   }
   50% {
     transform: translateY(-15px);
+  }
+}
+
+@keyframes squish {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  25% {
+    transform: scaleX(1.05) scaleY(0.95);
+  }
+  50% {
+    transform: scaleX(0.95) scaleY(1.05);
+  }
+  75% {
+    transform: scaleX(1.02) scaleY(0.98);
+  }
+}
+
+@keyframes jiggle {
+  0%, 100% {
+    border-radius: 50%;
+  }
+  25% {
+    border-radius: 48% 52% 51% 49% / 52% 48% 52% 48%;
+  }
+  50% {
+    border-radius: 52% 48% 49% 51% / 48% 52% 48% 52%;
+  }
+  75% {
+    border-radius: 49% 51% 52% 48% / 51% 49% 51% 49%;
   }
 }
 

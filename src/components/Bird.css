@@ -1,0 +1,341 @@
+.bird-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+  margin-top: calc(1.5rem + 10px);
+  margin-bottom: 0rem;
+  min-height: 120px;
+  width: 100%;
+}
+
+.bird {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transition: all 1s ease;
+  margin: 0 auto;
+}
+
+/* 鳥の体 */
+.bird-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+    rgba(245, 240, 235, 0.9) 0%,
+    rgba(235, 228, 220, 0.85) 50%,
+    rgba(220, 210, 200, 0.8) 100%
+  );
+  border-radius: 45% 55% 50% 50% / 55% 60% 40% 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    inset -3px -3px 8px rgba(0, 0, 0, 0.1),
+    inset 3px 3px 8px rgba(255, 255, 255, 0.6);
+  animation: birdFloat 6s ease-in-out infinite;
+}
+
+/* 翼 */
+.bird-wing {
+  position: absolute;
+  width: 24px;
+  height: 14px;
+  background: linear-gradient(135deg,
+    rgba(220, 210, 200, 0.8) 0%,
+    rgba(200, 190, 180, 0.7) 100%
+  );
+  border-radius: 50% 50% 50% 0;
+  top: calc(50% + 5px);
+  transform: translateY(-50%);
+  animation: wingFlap 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+.bird-wing.left {
+  left: -18px;
+  transform-origin: 100% 50%;
+}
+
+.bird-wing.right {
+  right: -38px;
+  transform-origin: 0% 50%;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+/* 応援モード - 羽ばたきが速くなる */
+.bird-cheering .bird-wing,
+.bird-happy .bird-wing {
+  animation: wingFlapFast 1.5s ease-in-out infinite;
+}
+
+/* 超ハッピー - 飛び立つ */
+.bird-super-happy .bird-wing {
+  animation: wingFlapTakeoff 0.8s ease-in-out infinite;
+}
+
+.bird-super-happy .bird-body {
+  animation: birdTakeoff 2s ease-in-out infinite;
+}
+
+/* 目 */
+.bird-eye {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle at 30% 30%, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 50%;
+  top: 35%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.bird-eye.left {
+  left: 32%;
+}
+
+.bird-eye.right {
+  right: 32%;
+}
+
+/* ハッピー時の目 */
+.bird-happy .bird-eye,
+.bird-super-happy .bird-eye {
+  width: 8px;
+  height: 3px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+/* 目を瞑った状態 */
+.bird-eyes-closed .bird-eye {
+  width: 8px;
+  height: 2px;
+  border-radius: 50%;
+}
+
+/* くちばし - シマエナガ風 */
+.bird-beak {
+  position: absolute;
+  width: 12px;
+  height: 6px;
+  background: #2a2a2a;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* 足 */
+.bird-feet {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+  z-index: 1;
+}
+
+.bird-foot {
+  width: 2px;
+  height: 12px;
+  background: #2a2a2a;
+  position: relative;
+}
+
+.bird-foot.left {
+  transform: rotate(15deg);
+  transform-origin: top center;
+}
+
+.bird-foot.right {
+  transform: rotate(-15deg);
+  transform-origin: top center;
+}
+
+.bird-foot::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -2px;
+  width: 6px;
+  height: 2px;
+  background: #2a2a2a;
+}
+
+/* メッセージバブル */
+.bird-message-bubble {
+  font-family: 'Lato', sans-serif;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0.7rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: messageFadeIn 0.5s ease;
+  text-align: center;
+  letter-spacing: 0.02em;
+  max-width: 300px;
+}
+
+/* アニメーション */
+@keyframes birdFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes birdTakeoff {
+  0%, 100% {
+    transform: translateY(-30px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes wingFlap {
+  0%, 100% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(-15deg);
+  }
+}
+
+.bird-wing.right {
+  animation: wingFlapRight 3s ease-in-out infinite;
+}
+
+@keyframes wingFlapRight {
+  0%, 100% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(-15deg);
+  }
+}
+
+@keyframes wingFlapFast {
+  0%, 100% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(-25deg);
+  }
+}
+
+.bird-cheering .bird-wing.right,
+.bird-happy .bird-wing.right {
+  animation: wingFlapFastRight 1.5s ease-in-out infinite;
+}
+
+@keyframes wingFlapFastRight {
+  0%, 100% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(-25deg);
+  }
+}
+
+@keyframes wingFlapTakeoff {
+  0%, 100% {
+    transform: rotateZ(-30deg);
+  }
+  50% {
+    transform: rotateZ(-40deg);
+  }
+}
+
+.bird-super-happy .bird-wing.right {
+  animation: wingFlapTakeoffRight 0.8s ease-in-out infinite;
+}
+
+@keyframes wingFlapTakeoffRight {
+  0%, 100% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(-30deg);
+  }
+  50% {
+    transform: translateY(-50%) scaleX(-1) rotateZ(-40deg);
+  }
+}
+
+@keyframes messageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* クリック時の震える動作 */
+.bird-shaking {
+  animation: birdShake 0.1s ease-in-out infinite;
+}
+
+@keyframes birdShake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(1deg);
+  }
+}
+
+/* モッフモフに大きくなる動作 */
+.bird-puffed .bird-body {
+  animation: birdPuff 1s ease-in-out;
+}
+
+@keyframes birdPuff {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .bird {
+    width: 70px;
+    height: 70px;
+  }
+
+  .bird-wing {
+    width: 30px;
+    height: 18px;
+  }
+
+  .bird-message-bubble {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+}

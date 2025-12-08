@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TemplateTask } from '../types';
+import type { TemplateTask } from '../types';
 import './TemplateManager.css';
 
 interface TemplateManagerProps {

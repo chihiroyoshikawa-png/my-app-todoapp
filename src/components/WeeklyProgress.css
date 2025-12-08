@@ -1,0 +1,120 @@
+.weekly-progress {
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.weekly-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.05em;
+}
+
+.weekly-stats {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.weekly-count {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.weekly-dots {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.day-dot {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.day-dot.completed {
+  background: linear-gradient(135deg, rgba(168, 197, 212, 0.7) 0%, rgba(212, 228, 236, 0.8) 100%);
+  box-shadow:
+    0 4px 12px rgba(168, 197, 212, 0.4),
+    0 6px 20px rgba(212, 228, 236, 0.3),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.1),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4);
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.day-dot.incomplete {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.dot-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(4px);
+}
+
+.day-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.02em;
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* モバイル対応 */
+@media (max-width: 600px) {
+  .day-dot {
+    width: 35px;
+    height: 35px;
+  }
+
+  .day-label {
+    font-size: 0.75rem;
+  }
+
+  .weekly-dots {
+    gap: 0.3rem;
+  }
+}
