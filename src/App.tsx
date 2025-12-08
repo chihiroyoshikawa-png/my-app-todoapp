@@ -7,6 +7,7 @@ import TemplateManager from './components/TemplateManager';
 import Celebration from './components/Celebration';
 import WeeklyProgress from './components/WeeklyProgress';
 import { SkillGrowth } from './components/SkillGrowth';
+import { ShootingStars } from './components/ShootingStars';
 import type { Task, TemplateTask, Skill, SkillType } from './types';
 import { CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
 import {
@@ -192,6 +193,7 @@ function App() {
 
   return (
     <div className="app">
+      <ShootingStars />
       <header className="app-header">
         <h1 className="app-title">MY TASK</h1>
         <p className="app-date">{formatDate()}</p>

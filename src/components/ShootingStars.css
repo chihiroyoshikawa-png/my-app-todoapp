@@ -1,0 +1,53 @@
+.shooting-stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px 2px rgba(255, 255, 255, 0.8),
+    0 0 12px 4px rgba(255, 255, 255, 0.4);
+  animation: shooting linear forwards;
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.5) 30%,
+    transparent
+  );
+  border-radius: 2px;
+}
+
+@keyframes shooting {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(-45deg);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(200px, 200px) rotate(-45deg);
+  }
+}
