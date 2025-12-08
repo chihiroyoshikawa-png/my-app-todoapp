@@ -25,7 +25,7 @@ const AddTaskForm = ({ onAddTask, onClose }: AddTaskFormProps) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-title">あたらしいタスクをついかする</h2>
+        <h2 className="modal-title">あたらしい やることをついかする</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

@@ -11,7 +11,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
   if (tasks.length === 0) {
     return (
       <div className="no-tasks">
-        <p>まだタスクがないよ！</p>
+        <p>まだ やることがないよ！</p>
         <p>したのボタンでついかしてね 🌟</p>
       </div>
     );

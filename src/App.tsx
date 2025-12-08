@@ -202,7 +202,7 @@ function App() {
           className={`tab-button ${currentTab === 'tasks' ? 'active' : ''}`}
           onClick={() => setCurrentTab('tasks')}
         >
-          📋 タスク
+          📋 やること
         </button>
         <button
           className={`tab-button ${currentTab === 'skills' ? 'active' : ''}`}
@@ -243,7 +243,7 @@ function App() {
 
             <div className="action-buttons">
               <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
-                ＋ タスクをついかする
+                ＋ やることをついかする
               </button>
               <button
                 className="action-button template-button"
@@ -272,7 +272,7 @@ function App() {
 
       {deleteConfirm && (
         <ConfirmDialog
-          message="このタスクをけしてもいいですか？"
+          message="これをけしてもいいですか？"
           onConfirm={confirmDelete}
           onCancel={() => setDeleteConfirm(null)}
         />

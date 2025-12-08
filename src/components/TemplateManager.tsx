@@ -41,7 +41,7 @@ const TemplateManager = ({ templates, onUpdateTemplates, onClose }: TemplateMana
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content template-manager" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-title">まいにちのタスクをせっていする</h2>
+        <h2 className="modal-title">まいにちの やることをせっていする</h2>
 
         <div className="template-list">
           {editingTemplates.map((template) => (
