@@ -41,13 +41,13 @@
 @keyframes shooting {
   0% {
     opacity: 1;
-    transform: translate(0, 0) rotate(165deg);
+    transform: translate(0, 0) rotate(30deg);
   }
   70% {
     opacity: 1;
   }
   100% {
     opacity: 0;
-    transform: translate(-150px, 250px) rotate(165deg);
+    transform: translate(-200px, 120px) rotate(30deg);
   }
 }
