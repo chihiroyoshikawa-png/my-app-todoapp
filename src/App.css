@@ -17,12 +17,14 @@
   z-index: -2;
   background:
     linear-gradient(180deg,
-      #1a3a52 0%,
-      #2d5f7e 20%,
-      #4a7c9e 40%,
-      #6b9bb5 60%,
-      #a8c5d4 80%,
-      #d4e4ec 100%
+      #2c1810 0%,
+      #5c3a2e 15%,
+      #a85d3b 30%,
+      #e88a5a 45%,
+      #f9b77a 60%,
+      #fdd9a0 75%,
+      #fff4d6 90%,
+      #fffef5 100%
     );
 }
 
@@ -63,17 +65,17 @@
   font-family: 'Cormorant', serif;
   font-size: 3rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.95);
+  color: #333;
   margin: 0;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
 }
 
 .app-date {
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: #444;
   margin: 0.5rem 0 0 0;
   font-weight: 300;
   letter-spacing: 0.05em;
@@ -92,27 +94,27 @@
   padding: 0.8rem 1.5rem;
   font-size: 0.95rem;
   font-weight: 400;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.3);
+  color: #555;
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.05em;
 }
 
 .tab-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #333;
 }
 
 .tab-button.active {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #333;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -121,9 +123,9 @@
   margin: 0 auto;
   padding: 1.2rem;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
@@ -142,14 +144,13 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.95rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  color: #333;
   letter-spacing: 0.05em;
 }
 
 .progress-bar {
   height: 8px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -196,13 +197,13 @@
   padding: 0.9rem 1.5rem;
   font-size: 0.9rem;
   font-weight: 400;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.6s ease;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.5);
+  color: #333;
   text-transform: none;
   letter-spacing: 0.05em;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -210,8 +211,8 @@
 
 .action-button:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.15);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -220,11 +221,11 @@
 }
 
 .add-button {
-  background: rgba(168, 197, 212, 0.25);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .template-button {
-  background: rgba(107, 155, 181, 0.2);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 600px) {
