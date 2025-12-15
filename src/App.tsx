@@ -7,8 +7,6 @@ import TemplateManager from './components/TemplateManager';
 import Celebration from './components/Celebration';
 import WeeklyProgress from './components/WeeklyProgress';
 import { SkillGrowth } from './components/SkillGrowth';
-import { ShootingStars } from './components/ShootingStars';
-import { TwinklingStars } from './components/TwinklingStars';
 import { TaskSuggestion } from './components/TaskSuggestion';
 import type { Task, TemplateTask, Skill, SkillType } from './types';
 import { CELEBRATION_MESSAGES, TASK_COMPLETE_MESSAGES } from './types';
@@ -118,13 +116,14 @@ function App() {
   };
 
   // タスク追加
-  const handleAddTask = (text: string, emoji?: string) => {
+  const handleAddTask = (text: string, emoji?: string, isChallenge?: boolean) => {
     const newTask: Task = {
       id: `${Date.now()}-${Math.random()}`,
       text,
       emoji,
       completed: false,
       createdAt: new Date().toISOString(),
+      isChallenge,
     };
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
@@ -136,6 +135,14 @@ function App() {
     saveData(data);
     setSkills(data.skills);
   };
+
+  // 挑戦タスク追加
+  const handleAddChallenge = (text: string) => {
+    handleAddTask(text, undefined, true);
+  };
+
+  // 今日すでに挑戦タスクがあるか
+  const hasChallengeToday = tasks.some(task => task.isChallenge);
 
   // タスク削除
   const handleDeleteTask = (taskId: string) => {
@@ -195,8 +202,6 @@ function App() {
 
   return (
     <div className="app">
-      <TwinklingStars />
-      <ShootingStars />
       <header className="app-header">
         <h1 className="app-title">MY TASK</h1>
         <p className="app-date">{formatDate()}</p>
@@ -252,7 +257,8 @@ function App() {
               </button>
               <TaskSuggestion
                 existingTasks={tasks.map(t => t.text)}
-                onAddSuggestion={(text) => handleAddTask(text, '✨')}
+                onAddChallenge={handleAddChallenge}
+                hasChallengeToday={hasChallengeToday}
               />
               <button
                 className="action-button template-button"

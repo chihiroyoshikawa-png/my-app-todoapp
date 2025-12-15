@@ -47,38 +47,37 @@ const Bird = ({ mood = 'normal', message }: BirdProps) => {
 
   return (
     <div className="bird-container">
-      <div className="bird-wrapper">
-        {message && (
-          <div className="bird-message">
-            {message}
-          </div>
-        )}
-        <div
-          className={`bird bird-${mood} ${isShaking ? 'bird-shaking' : ''} ${isPuffed ? 'bird-puffed' : ''} ${eyesClosed ? 'bird-eyes-closed' : ''}`}
-          onClick={handleBirdClick}
-          style={{ cursor: 'pointer' }}
-        >
-          {/* 鳥の体 */}
-          <div className="bird-body">
-            {/* 翼 */}
-            <div className="bird-wing left"></div>
-            <div className="bird-wing right"></div>
+      <div
+        className={`bird bird-${mood} ${isShaking ? 'bird-shaking' : ''} ${isPuffed ? 'bird-puffed' : ''} ${eyesClosed ? 'bird-eyes-closed' : ''}`}
+        onClick={handleBirdClick}
+        style={{ cursor: 'pointer' }}
+      >
+        {/* 鳥の体 */}
+        <div className="bird-body">
+          {/* 翼 */}
+          <div className="bird-wing left"></div>
+          <div className="bird-wing right"></div>
 
-            {/* 目 */}
-            <div className="bird-eye left"></div>
-            <div className="bird-eye right"></div>
+          {/* 目 */}
+          <div className="bird-eye left"></div>
+          <div className="bird-eye right"></div>
 
-            {/* くちばし */}
-            <div className="bird-beak"></div>
+          {/* くちばし */}
+          <div className="bird-beak"></div>
 
-            {/* 足 */}
-            <div className="bird-feet">
-              <div className="bird-foot left"></div>
-              <div className="bird-foot right"></div>
-            </div>
+          {/* 足 */}
+          <div className="bird-feet">
+            <div className="bird-foot left"></div>
+            <div className="bird-foot right"></div>
           </div>
         </div>
       </div>
+
+      {message && (
+        <div className="bird-message-bubble">
+          {message}
+        </div>
+      )}
     </div>
   );
 };

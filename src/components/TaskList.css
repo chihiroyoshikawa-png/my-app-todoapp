@@ -42,6 +42,41 @@
   border-color: rgba(168, 197, 212, 0.3);
 }
 
+/* 挑戦タスクのスタイル */
+.task-item.challenge {
+  background: linear-gradient(135deg, rgba(255, 100, 50, 0.2) 0%, rgba(255, 150, 50, 0.15) 100%);
+  border-color: rgba(255, 150, 100, 0.5);
+  box-shadow: 0 4px 20px rgba(255, 100, 50, 0.2);
+}
+
+.task-item.challenge:hover {
+  background: linear-gradient(135deg, rgba(255, 100, 50, 0.3) 0%, rgba(255, 150, 50, 0.25) 100%);
+  border-color: rgba(255, 150, 100, 0.6);
+}
+
+.task-item.challenge.completed {
+  opacity: 0.6;
+  background: linear-gradient(135deg, rgba(255, 150, 100, 0.15) 0%, rgba(255, 180, 130, 0.1) 100%);
+  border-color: rgba(255, 180, 130, 0.3);
+}
+
+.challenge-badge {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  animation: fireGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes fireGlow {
+  0%, 100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+  }
+}
+
 .task-checkbox {
   flex-shrink: 0;
   width: 28px;

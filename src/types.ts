@@ -5,6 +5,7 @@ export interface Task {
   completed: boolean;
   emoji?: string;
   createdAt: string;
+  isChallenge?: boolean; // AIが提案した挑戦タスク
 }
 
 // テンプレートタスクの型定義

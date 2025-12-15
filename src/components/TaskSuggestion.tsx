@@ -3,10 +3,11 @@ import './TaskSuggestion.css';
 
 interface TaskSuggestionProps {
   existingTasks: string[];
-  onAddSuggestion: (text: string) => void;
+  onAddChallenge: (text: string) => void;
+  hasChallengeToday: boolean;
 }
 
-export const TaskSuggestion = ({ existingTasks, onAddSuggestion }: TaskSuggestionProps) => {
+export const TaskSuggestion = ({ existingTasks, onAddChallenge, hasChallengeToday }: TaskSuggestionProps) => {
   const [suggestion, setSuggestion] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export const TaskSuggestion = ({ existingTasks, onAddSuggestion }: TaskSuggestio
         body: JSON.stringify({
           dayOfWeek: today.getDay(),
           month: today.getMonth() + 1,
+          day: today.getDate(),
           existingTasks,
         }),
       });
@@ -41,23 +43,28 @@ export const TaskSuggestion = ({ existingTasks, onAddSuggestion }: TaskSuggestio
     }
   };
 
-  const handleAddSuggestion = () => {
+  const handleAddChallenge = () => {
     if (suggestion) {
-      onAddSuggestion(suggestion);
+      onAddChallenge(suggestion);
       setSuggestion(null);
     }
   };
 
+  // 今日すでに挑戦タスクがある場合は表示しない
+  if (hasChallengeToday) {
+    return null;
+  }
+
   return (
     <div className="task-suggestion">
-      {!suggestion && !isLoading && (
+      {!suggestion && !isLoading && !error && (
         <button
-          className="suggestion-button"
+          className="suggestion-button challenge-button"
           onClick={getSuggestion}
           disabled={isLoading}
         >
-          <span className="suggestion-icon">💡</span>
-          AIにていあんしてもらう
+          <span className="suggestion-icon">🔥</span>
+          きょうのちょうせんをもらう
         </button>
       )}
 
@@ -78,15 +85,15 @@ export const TaskSuggestion = ({ existingTasks, onAddSuggestion }: TaskSuggestio
       )}
 
       {suggestion && (
-        <div className="suggestion-result">
-          <div className="suggestion-label">AIのていあん:</div>
-          <div className="suggestion-text">{suggestion}</div>
+        <div className="suggestion-result challenge-result">
+          <div className="suggestion-label">🔥 きょうのちょうせん:</div>
+          <div className="suggestion-text challenge-text">{suggestion}</div>
           <div className="suggestion-actions">
-            <button className="add-suggestion-button" onClick={handleAddSuggestion}>
-              ついかする
+            <button className="add-suggestion-button challenge-add-button" onClick={handleAddChallenge}>
+              ちょうせんする！
             </button>
             <button className="new-suggestion-button" onClick={getSuggestion}>
-              べつのていあん
+              べつのちょうせん
             </button>
             <button className="cancel-button" onClick={() => setSuggestion(null)}>
               やめる

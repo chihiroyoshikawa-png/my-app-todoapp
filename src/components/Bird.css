@@ -166,27 +166,24 @@
   background: #2a2a2a;
 }
 
-/* 鳥とメッセージのラッパー */
-.bird-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* メッセージ（バブルなし） */
-.bird-message {
+/* メッセージバブル */
+.bird-message-bubble {
   font-family: 'Lato', sans-serif;
-  font-size: 1.1rem;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.8rem 1.4rem;
+  border-radius: 20px;
+  font-size: 1rem;
   font-weight: 600;
   color: #333;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   animation: messageFadeIn 0.5s ease;
+  text-align: center;
   letter-spacing: 0.02em;
-  white-space: nowrap;
-  transform: rotate(-30deg);
-  transform-origin: right center;
-  margin-right: 10px;
+  max-width: 300px;
 }
 
 /* アニメーション */
@@ -337,7 +334,8 @@
     height: 18px;
   }
 
-  .bird-message {
-    font-size: 1rem;
+  .bird-message-bubble {
+    font-size: 0.95rem;
+    padding: 0.7rem 1.2rem;
   }
 }

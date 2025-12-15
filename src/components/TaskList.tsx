@@ -22,7 +22,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
       {tasks.map((task) => (
         <div
           key={task.id}
-          className={`task-item ${task.completed ? 'completed' : ''}`}
+          className={`task-item ${task.completed ? 'completed' : ''} ${task.isChallenge ? 'challenge' : ''}`}
         >
           <button
             className="task-checkbox"
@@ -33,7 +33,8 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
           </button>
 
           <div className="task-content" onClick={() => onToggleTask(task.id)}>
-            {task.emoji && <span className="task-emoji">{task.emoji}</span>}
+            {task.isChallenge && <span className="challenge-badge">🔥</span>}
+            {task.emoji && !task.isChallenge && <span className="task-emoji">{task.emoji}</span>}
             <span className="task-text">{task.text}</span>
           </div>
 
