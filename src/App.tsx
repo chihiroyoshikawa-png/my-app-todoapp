@@ -260,15 +260,16 @@ function App() {
           onDeleteTask={handleDeleteTask}
         />
 
+            <TaskSuggestion
+              existingTasks={tasks.map(t => t.text)}
+              onAddChallenge={handleAddChallenge}
+              hasChallengeToday={hasChallengeToday}
+            />
+
             <div className="action-buttons">
               <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
                 ＋ やることをついかする
               </button>
-              <TaskSuggestion
-                existingTasks={tasks.map(t => t.text)}
-                onAddChallenge={handleAddChallenge}
-                hasChallengeToday={hasChallengeToday}
-              />
               <button
                 className="action-button template-button"
                 onClick={() => setShowTemplateManager(true)}
