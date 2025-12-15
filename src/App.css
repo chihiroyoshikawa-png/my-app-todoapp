@@ -17,14 +17,13 @@
   z-index: -2;
   background:
     linear-gradient(180deg,
-      #2c1810 0%,
-      #5c3a2e 15%,
-      #a85d3b 30%,
-      #e88a5a 45%,
-      #f9b77a 60%,
-      #fdd9a0 75%,
-      #fff4d6 90%,
-      #fffef5 100%
+      #f9a870 0%,
+      #fcbc85 15%,
+      #fdd09a 30%,
+      #ffe4b5 50%,
+      #fff3d6 70%,
+      #fffaf0 85%,
+      #fffef8 100%
     );
 }
 
@@ -65,11 +64,11 @@
   font-family: 'Cormorant', serif;
   font-size: 3rem;
   font-weight: 300;
-  color: #333;
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .app-date {
