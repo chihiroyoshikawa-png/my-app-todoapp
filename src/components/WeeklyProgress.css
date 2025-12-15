@@ -11,10 +11,9 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.95);
+  color: #333;
   margin: 0 0 0.5rem 0;
   text-align: center;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
   letter-spacing: 0.05em;
 }
 
@@ -27,8 +26,7 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  color: #444;
   letter-spacing: 0.02em;
 }
 
@@ -89,8 +87,7 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.7rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  color: #444;
   letter-spacing: 0.02em;
 }
 
