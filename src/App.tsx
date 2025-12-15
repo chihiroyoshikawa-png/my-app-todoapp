@@ -202,6 +202,15 @@ function App() {
 
   return (
     <div className="app">
+      {/* 雲 */}
+      <div className="clouds">
+        <div className="cloud cloud-1"></div>
+        <div className="cloud cloud-2"></div>
+        <div className="cloud cloud-3"></div>
+        <div className="cloud cloud-4"></div>
+        <div className="cloud cloud-5"></div>
+      </div>
+
       <header className="app-header">
         <h1 className="app-title">MY TASK</h1>
         <p className="app-date">{formatDate()}</p>

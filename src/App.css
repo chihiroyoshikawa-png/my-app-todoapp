@@ -15,42 +15,213 @@
   right: 0;
   bottom: 0;
   z-index: -2;
-  background:
-    linear-gradient(180deg,
-      #f9a870 0%,
-      #fcbc85 15%,
-      #fdd09a 30%,
-      #ffe4b5 50%,
-      #fff3d6 70%,
-      #fffaf0 85%,
-      #fffef8 100%
-    );
+  background: #fffff5;
 }
 
-.app::after {
-  content: '';
+/* 雲のスタイル */
+.clouds {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  height: 40%;
+  bottom: 0;
   z-index: -1;
-  background:
-    radial-gradient(ellipse at 20% 100%, rgba(76, 110, 72, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(88, 120, 85, 0.5) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 100%, rgba(65, 95, 62, 0.4) 0%, transparent 50%),
-    linear-gradient(180deg, transparent 0%, rgba(45, 75, 60, 0.3) 100%);
-  animation: forestSway 40s ease-in-out infinite;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-@keyframes forestSway {
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+/* 雲1 - 左上 */
+.cloud-1 {
+  width: 120px;
+  height: 50px;
+  top: 8%;
+  left: 5%;
+  background: linear-gradient(180deg, #fff 60%, rgba(255, 180, 120, 0.5) 100%);
+  box-shadow: 0 8px 20px rgba(255, 150, 100, 0.3);
+  animation: cloudFloat1 25s ease-in-out infinite;
+}
+
+.cloud-1::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 15px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 180, 120, 0.4) 100%);
+}
+
+.cloud-1::after {
+  width: 80px;
+  height: 70px;
+  top: -40px;
+  left: 50px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 180, 120, 0.4) 100%);
+}
+
+/* 雲2 - 右上 */
+.cloud-2 {
+  width: 150px;
+  height: 55px;
+  top: 12%;
+  right: 10%;
+  background: linear-gradient(180deg, #fff 60%, rgba(255, 160, 100, 0.5) 100%);
+  box-shadow: 0 10px 25px rgba(255, 140, 80, 0.35);
+  animation: cloudFloat2 30s ease-in-out infinite;
+}
+
+.cloud-2::before {
+  width: 70px;
+  height: 65px;
+  top: -35px;
+  left: 20px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 160, 100, 0.4) 100%);
+}
+
+.cloud-2::after {
+  width: 90px;
+  height: 75px;
+  top: -45px;
+  left: 60px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 160, 100, 0.4) 100%);
+}
+
+/* 雲3 - 中央やや左 */
+.cloud-3 {
+  width: 100px;
+  height: 40px;
+  top: 20%;
+  left: 25%;
+  background: linear-gradient(180deg, #fff 60%, rgba(255, 170, 110, 0.45) 100%);
+  box-shadow: 0 6px 18px rgba(255, 145, 90, 0.3);
+  animation: cloudFloat3 22s ease-in-out infinite;
+}
+
+.cloud-3::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 170, 110, 0.35) 100%);
+}
+
+.cloud-3::after {
+  width: 65px;
+  height: 55px;
+  top: -30px;
+  left: 40px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 170, 110, 0.35) 100%);
+}
+
+/* 雲4 - 右側中段 */
+.cloud-4 {
+  width: 130px;
+  height: 45px;
+  top: 25%;
+  right: 5%;
+  background: linear-gradient(180deg, #fff 60%, rgba(255, 155, 95, 0.5) 100%);
+  box-shadow: 0 8px 22px rgba(255, 135, 75, 0.32);
+  animation: cloudFloat4 28s ease-in-out infinite;
+}
+
+.cloud-4::before {
+  width: 55px;
+  height: 55px;
+  top: -28px;
+  left: 18px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 155, 95, 0.4) 100%);
+}
+
+.cloud-4::after {
+  width: 75px;
+  height: 65px;
+  top: -38px;
+  left: 55px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 155, 95, 0.4) 100%);
+}
+
+/* 雲5 - 小さめ左下 */
+.cloud-5 {
+  width: 80px;
+  height: 35px;
+  top: 35%;
+  left: 8%;
+  background: linear-gradient(180deg, #fff 60%, rgba(255, 175, 115, 0.4) 100%);
+  box-shadow: 0 5px 15px rgba(255, 150, 95, 0.28);
+  animation: cloudFloat5 20s ease-in-out infinite;
+}
+
+.cloud-5::before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 8px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 175, 115, 0.35) 100%);
+}
+
+.cloud-5::after {
+  width: 55px;
+  height: 45px;
+  top: -25px;
+  left: 30px;
+  background: linear-gradient(180deg, #fff 50%, rgba(255, 175, 115, 0.35) 100%);
+}
+
+@keyframes cloudFloat1 {
   0%, 100% {
-    transform: translateX(0);
-    opacity: 0.3;
+    transform: translateX(0) translateY(0);
   }
   50% {
-    transform: translateX(5px);
-    opacity: 0.4;
+    transform: translateX(15px) translateY(-5px);
+  }
+}
+
+@keyframes cloudFloat2 {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-20px) translateY(8px);
+  }
+}
+
+@keyframes cloudFloat3 {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(10px) translateY(-8px);
+  }
+}
+
+@keyframes cloudFloat4 {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-15px) translateY(5px);
+  }
+}
+
+@keyframes cloudFloat5 {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(12px) translateY(-6px);
   }
 }
 
@@ -64,11 +235,11 @@
   font-family: 'Cormorant', serif;
   font-size: 3rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.95);
+  color: #e07030;
   margin: 0;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 15px rgba(255, 150, 100, 0.4);
 }
 
 .app-date {
