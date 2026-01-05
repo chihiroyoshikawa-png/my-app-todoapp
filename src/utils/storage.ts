@@ -13,7 +13,25 @@ export const loadData = (): AppData => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (data) {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // 既存データのスキル名と絵文字を最新の定義で更新
+      const defaultSkills = getDefaultSkills();
+      const updatedSkills = { ...parsed.skills };
+      for (const key of Object.keys(defaultSkills) as SkillType[]) {
+        if (updatedSkills[key]) {
+          updatedSkills[key] = {
+            ...updatedSkills[key],
+            name: defaultSkills[key].name,
+            emoji: defaultSkills[key].emoji,
+          };
+        } else {
+          updatedSkills[key] = defaultSkills[key];
+        }
+      }
+      return {
+        ...parsed,
+        skills: updatedSkills,
+      };
     }
   } catch (error) {
     console.error('Failed to load data:', error);
