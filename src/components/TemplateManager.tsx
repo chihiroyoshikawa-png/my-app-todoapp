@@ -41,7 +41,7 @@ const TemplateManager = ({ templates, onUpdateTemplates, onClose }: TemplateMana
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content template-manager" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-title">まいにちの やることをせっていする</h2>
+        <h2 className="modal-title">毎日の やることを設定する</h2>
 
         <div className="template-list">
           {editingTemplates.map((template) => (
@@ -57,18 +57,18 @@ const TemplateManager = ({ templates, onUpdateTemplates, onClose }: TemplateMana
             </div>
           ))}
           {editingTemplates.length === 0 && (
-            <p className="no-templates">まだテンプレートがないよ！したからついかしてね。</p>
+            <p className="no-templates">まだテンプレートがないよ！下から追加してね。</p>
           )}
         </div>
 
         <form onSubmit={handleAddTemplate} className="add-template-form">
-          <h3 className="form-subtitle">あたらしいテンプレートをついかする</h3>
+          <h3 className="form-subtitle">新しいテンプレートを追加する</h3>
           <input
             type="text"
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             className="task-input"
-            placeholder="れい: はをみがく"
+            placeholder="れい: 歯をみがく"
             maxLength={50}
           />
           <div className="emoji-select">
@@ -84,7 +84,7 @@ const TemplateManager = ({ templates, onUpdateTemplates, onClose }: TemplateMana
             ))}
           </div>
           <button type="submit" className="add-template-button" disabled={!newTaskText.trim()}>
-            テンプレートをついかする
+            テンプレートを追加する
           </button>
         </form>
 

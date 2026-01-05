@@ -79,7 +79,7 @@ export default async function handler(req: Request) {
 
     const client = new OpenAI({ apiKey });
 
-    const weekdays = ['にちようび', 'げつようび', 'かようび', 'すいようび', 'もくようび', 'きんようび', 'どようび'];
+    const weekdays = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'];
     const dayName = weekdays[dayOfWeek];
 
     const seasonalContext = getSeasonalContext(month, day);

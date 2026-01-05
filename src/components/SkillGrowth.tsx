@@ -66,27 +66,27 @@ export const SkillGrowth: React.FC<SkillGrowthProps> = ({ skills }) => {
       </div>
 
       <div className="skill-tips">
-        <h3 className="tips-title">💡 スキルのそだてかた</h3>
+        <h3 className="tips-title">💡 スキルの育て方</h3>
         <ul className="tips-list">
           <li>
             <span className="tip-icon">🔥</span>
-            <strong>がんばりやさん:</strong> まいにち やることをこなそう
+            <strong>がんばりやさん:</strong> 毎日 やることをこなそう
           </li>
           <li>
             <span className="tip-icon">⭐</span>
-            <strong>やりきりスター:</strong> ぜんぶの やることをかんせいしよう
+            <strong>やりきりスター:</strong> 全部の やることを完成しよう
           </li>
           <li>
             <span className="tip-icon">⏰</span>
-            <strong>じかんまもる:</strong> はやい じかんに やることをしよう
+            <strong>時間まもる:</strong> 早い 時間に やることをしよう
           </li>
           <li>
             <span className="tip-icon">✨</span>
-            <strong>せいりせいとん:</strong> やることをせいりしよう
+            <strong>整理整とん:</strong> やることを整理しよう
           </li>
           <li>
             <span className="tip-icon">🚀</span>
-            <strong>チャレンジャー:</strong> あたらしい やることにちょうせん
+            <strong>チャレンジャー:</strong> 新しい やることにちょうせん
           </li>
         </ul>
       </div>

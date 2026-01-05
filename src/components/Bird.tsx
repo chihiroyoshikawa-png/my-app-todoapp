@@ -12,6 +12,8 @@ const Bird = ({ mood = 'normal', message }: BirdProps) => {
   const [isShaking, setIsShaking] = useState(false);
   const [isPuffed, setIsPuffed] = useState(false);
   const [eyesClosed, setEyesClosed] = useState(false);
+  const [isSmiling, setIsSmiling] = useState(false);
+  const [isRolling, setIsRolling] = useState(false);
 
   useEffect(() => {
     if (message) {
@@ -23,20 +25,31 @@ const Bird = ({ mood = 'normal', message }: BirdProps) => {
   }, [message]);
 
   const handleBirdClick = () => {
-    // 10回に1回の確率でモッフモフモード
-    const shouldPuff = Math.random() < 0.1;
+    const random = Math.random();
 
-    setEyesClosed(true);
-
-    if (shouldPuff) {
-      // モッフモフに大きくなる
+    if (random < 1 / 13) {
+      // 13回に1回: ゴロゴロ転がる
+      setIsRolling(true);
+      setTimeout(() => {
+        setIsRolling(false);
+      }, 1500);
+    } else if (random < 1 / 13 + 1 / 5) {
+      // 5回に1回: にっこり微笑む
+      setIsSmiling(true);
+      setTimeout(() => {
+        setIsSmiling(false);
+      }, 1200);
+    } else if (random < 1 / 13 + 1 / 5 + 0.1) {
+      // 10回に1回: モッフモフに大きくなる
+      setEyesClosed(true);
       setIsPuffed(true);
       setTimeout(() => {
         setIsPuffed(false);
         setEyesClosed(false);
       }, 1000);
     } else {
-      // 震える
+      // その他: 震える
+      setEyesClosed(true);
       setIsShaking(true);
       setTimeout(() => {
         setIsShaking(false);
@@ -48,7 +61,7 @@ const Bird = ({ mood = 'normal', message }: BirdProps) => {
   return (
     <div className="bird-container">
       <div
-        className={`bird bird-${mood} ${isShaking ? 'bird-shaking' : ''} ${isPuffed ? 'bird-puffed' : ''} ${eyesClosed ? 'bird-eyes-closed' : ''}`}
+        className={`bird bird-${mood} ${isShaking ? 'bird-shaking' : ''} ${isPuffed ? 'bird-puffed' : ''} ${eyesClosed ? 'bird-eyes-closed' : ''} ${isSmiling ? 'bird-smiling' : ''} ${isRolling ? 'bird-rolling' : ''}`}
         onClick={handleBirdClick}
         style={{ cursor: 'pointer' }}
       >

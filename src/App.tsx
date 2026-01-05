@@ -195,9 +195,9 @@ function App() {
     const today = new Date();
     const month = today.getMonth() + 1;
     const day = today.getDate();
-    const weekdays = ['にち', 'げつ', 'か', 'すい', 'もく', 'きん', 'ど'];
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     const weekday = weekdays[today.getDay()];
-    return `${month}がつ ${day}にち（${weekday}ようび）`;
+    return `${month}月 ${day}日（${weekday}曜日）`;
   };
 
   return (
@@ -227,7 +227,7 @@ function App() {
           className={`tab-button ${currentTab === 'skills' ? 'active' : ''}`}
           onClick={() => setCurrentTab('skills')}
         >
-          🌟 せいちょう
+          🌟 成長
         </button>
       </nav>
 
@@ -268,13 +268,13 @@ function App() {
 
             <div className="action-buttons">
               <button className="action-button add-button" onClick={() => setShowAddForm(true)}>
-                ＋ やることをついかする
+                ＋ やることを追加する
               </button>
               <button
                 className="action-button template-button"
                 onClick={() => setShowTemplateManager(true)}
               >
-                ⚙️ テンプレートをへんしゅうする
+                ⚙️ テンプレートを編集する
               </button>
             </div>
           </>

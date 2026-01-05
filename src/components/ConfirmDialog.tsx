@@ -17,7 +17,7 @@ const ConfirmDialog = ({ message, onConfirm, onCancel }: ConfirmDialogProps) => 
             やめる
           </button>
           <button onClick={onConfirm} className="confirm-ok">
-            けす
+            消す
           </button>
         </div>
       </div>

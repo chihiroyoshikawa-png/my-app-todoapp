@@ -59,7 +59,7 @@
 
 .no-templates {
   text-align: center;
-  color: #999;
+  color: #333;
   padding: 2rem 1rem;
   font-size: 1.1rem;
 }
@@ -73,7 +73,7 @@
 .form-subtitle {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #555;
+  color: #333;
   margin: 0 0 1rem 0;
 }
 

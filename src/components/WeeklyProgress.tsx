@@ -5,7 +5,7 @@ interface WeeklyProgressProps {
 }
 
 const WeeklyProgress = ({ weeklyData }: WeeklyProgressProps) => {
-  const weekdays = ['にち', 'げつ', 'か', 'すい', 'もく', 'きん', 'ど'];
+  const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
 
   // 達成した日数を計算
   const completedDays = weeklyData.filter(completed => completed).length;
@@ -13,12 +13,12 @@ const WeeklyProgress = ({ weeklyData }: WeeklyProgressProps) => {
   return (
     <div className="weekly-progress">
       <h2 className="weekly-title">
-        こんしゅうの きろく
+        今週の 記ろく
       </h2>
       {completedDays > 0 && (
         <div className="weekly-stats">
           <span className="weekly-count">
-            {completedDays}にち できたよ！
+            {completedDays}日 できたよ！
           </span>
         </div>
       )}

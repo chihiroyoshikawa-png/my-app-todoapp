@@ -12,7 +12,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
     return (
       <div className="no-tasks">
         <p>まだ やることがないよ！</p>
-        <p>したのボタンでついかしてね 🌟</p>
+        <p>下のボタンで追加してね 🌟</p>
       </div>
     );
   }
@@ -27,7 +27,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
           <button
             className="task-checkbox"
             onClick={() => onToggleTask(task.id)}
-            aria-label={task.completed ? 'みかんりょうにする' : 'かんりょうにする'}
+            aria-label={task.completed ? '未完了にする' : '完了にする'}
           >
             {task.completed && <span className="checkmark">✓</span>}
           </button>
@@ -41,7 +41,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
           <button
             className="delete-button"
             onClick={() => onDeleteTask(task.id)}
-            aria-label="けす"
+            aria-label="消す"
           >
             🗑️
           </button>
