@@ -130,11 +130,12 @@
 
 .skill-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(90deg, #ff9a56 0%, #ffbe76 100%);
   border-radius: 6px;
   transition: width 0.5s ease-out;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 154, 86, 0.5);
 }
 
 .skill-progress-fill::after {

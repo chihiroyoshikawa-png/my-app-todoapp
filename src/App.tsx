@@ -18,7 +18,8 @@ import {
   getWeeklyProgress,
   updateSkillsOnTaskComplete,
   updateChallengeSkill,
-  updateOrganizationSkill
+  updateAllCompleteSkill,
+  updateDailyLoginSkill
 } from './utils/storage';
 import './App.css';
 
@@ -38,7 +39,10 @@ function App() {
 
   // 初期データ読み込み
   useEffect(() => {
-    const data = loadData();
+    let data = loadData();
+    // コツコツさん: 1日1回アプリを開くとポイント獲得
+    data = updateDailyLoginSkill(data);
+    saveData(data);
     setTemplates(data.templates);
     setTasks(getTodayTasks(data));
     setWeeklyData(getWeeklyProgress(data));
@@ -90,6 +94,9 @@ function App() {
     let data = loadData();
     data = saveTodayTasks(data, updatedTasks);
     data = updateSkillsOnTaskComplete(data, allCompleted);
+    if (allCompleted) {
+      data = updateAllCompleteSkill(data);
+    }
     saveData(data);
     setSkills(data.skills);
 
@@ -154,12 +161,10 @@ function App() {
       const updatedTasks = tasks.filter((task) => task.id !== deleteConfirm);
       setTasks(updatedTasks);
 
-      // 整理整頓スキルを更新
+      // データを保存
       let data = loadData();
       data = saveTodayTasks(data, updatedTasks);
-      data = updateOrganizationSkill(data);
       saveData(data);
-      setSkills(data.skills);
 
       setDeleteConfirm(null);
     }

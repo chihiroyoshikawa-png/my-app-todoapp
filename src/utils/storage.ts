@@ -65,8 +65,8 @@ const getDefaultSkills = (): { [key in SkillType]: Skill } => {
     },
     completion: {
       id: 'completion',
-      name: 'やりきりスター',
-      emoji: '⭐',
+      name: 'コツコツさん',
+      emoji: '🐢',
       level: 1,
       points: 0,
       maxPoints: 10,
@@ -81,8 +81,8 @@ const getDefaultSkills = (): { [key in SkillType]: Skill } => {
     },
     organization: {
       id: 'organization',
-      name: 'せいりせいとん',
-      emoji: '✨',
+      name: 'ぜんぶできたデー',
+      emoji: '🏆',
       level: 1,
       points: 0,
       maxPoints: 10,
@@ -212,17 +212,11 @@ export const updateSkillsOnTaskComplete = (
   // 継続力: タスクを完了すると常にポイント獲得
   const persistenceResult = addSkillPoints(data.skills.persistence, 1);
 
-  // 完遂力: 全タスク完了時にポイント獲得
-  let completionResult = { skill: data.skills.completion, leveledUp: false };
-  if (isAllComplete) {
-    completionResult = addSkillPoints(data.skills.completion, 3);
-  }
-
-  // 時間管理: 午前中（12時前）に完了するとボーナスポイント
+  // 時間管理: 19時半までに完了するとポイント獲得
+  const now_minutes = now.getHours() * 60 + now.getMinutes();
+  const deadline = 19 * 60 + 30; // 19:30
   let timeManagementResult = { skill: data.skills.timeManagement, leveledUp: false };
-  if (hour < 12) {
-    timeManagementResult = addSkillPoints(data.skills.timeManagement, 2);
-  } else if (hour < 18) {
+  if (now_minutes <= deadline) {
     timeManagementResult = addSkillPoints(data.skills.timeManagement, 1);
   }
 
@@ -231,7 +225,6 @@ export const updateSkillsOnTaskComplete = (
     skills: {
       ...data.skills,
       persistence: persistenceResult.skill,
-      completion: completionResult.skill,
       timeManagement: timeManagementResult.skill,
     },
   };
@@ -250,8 +243,8 @@ export const updateChallengeSkill = (data: AppData): AppData => {
   };
 };
 
-// タスク削除時に整理整頓スキルを更新
-export const updateOrganizationSkill = (data: AppData): AppData => {
+// 全タスク完了時に「ぜんぶできたデー」スキルを更新
+export const updateAllCompleteSkill = (data: AppData): AppData => {
   const organizationResult = addSkillPoints(data.skills.organization, 1);
 
   return {
@@ -259,6 +252,33 @@ export const updateOrganizationSkill = (data: AppData): AppData => {
     skills: {
       ...data.skills,
       organization: organizationResult.skill,
+    },
+  };
+};
+
+// コツコツさん: 1日1回アプリを開くとポイント獲得
+const DAILY_LOGIN_KEY = 'kids-todo-daily-login';
+
+export const updateDailyLoginSkill = (data: AppData): AppData => {
+  const today = getTodayString();
+  const lastLogin = localStorage.getItem(DAILY_LOGIN_KEY);
+
+  // 今日すでにポイント獲得済みの場合はスキップ
+  if (lastLogin === today) {
+    return data;
+  }
+
+  // 今日の日付を記録
+  localStorage.setItem(DAILY_LOGIN_KEY, today);
+
+  // コツコツさんスキルにポイント追加
+  const completionResult = addSkillPoints(data.skills.completion, 1);
+
+  return {
+    ...data,
+    skills: {
+      ...data.skills,
+      completion: completionResult.skill,
     },
   };
 };
