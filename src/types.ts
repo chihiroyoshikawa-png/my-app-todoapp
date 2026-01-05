@@ -39,7 +39,7 @@ export interface AppData {
   };
 }
 
-// 祝福メッセージの配列（8歳のふわこの口調）
+// 祝福メッセージの配列（8歳のシマエナガの口調）
 export const CELEBRATION_MESSAGES = [
   'わーい！ぜんぶできたね！すごいよ！',
   'やったー！みんなできたね！',
@@ -49,7 +49,7 @@ export const CELEBRATION_MESSAGES = [
   'よくがんばったね！えらいよ！',
 ];
 
-// 完了時のメッセージ配列（8歳のふわこの口調）
+// 完了時のメッセージ配列（8歳のシマエナガの口調）
 export const TASK_COMPLETE_MESSAGES = [
   'やったね！',
   'すごいよ！',

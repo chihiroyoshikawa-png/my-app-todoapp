@@ -200,13 +200,12 @@
 }
 
 .app-title {
-  font-family: 'Cormorant', serif;
-  font-size: 3rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.8rem;
   font-weight: 300;
   color: #e07030;
   margin: 0;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  letter-spacing: 0.1em;
   text-shadow: 0 2px 15px rgba(255, 150, 100, 0.4);
 }
 

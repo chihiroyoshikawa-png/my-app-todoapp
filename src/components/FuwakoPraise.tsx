@@ -25,7 +25,7 @@ const FuwakoPraise = ({ show, message }: FuwakoPraiseProps) => {
   return (
     <div className="fuwako-praise-overlay">
       <div className="fuwako-praise-container">
-        {/* 大きなふわこ */}
+        {/* 大きなシマエナガ */}
         <div className="fuwako-big">
           <div className="fuwako-big-body">
             <div className="fuwako-big-glow"></div>
