@@ -93,7 +93,7 @@ function App() {
     // スキルを更新
     let data = loadData();
     data = saveTodayTasks(data, updatedTasks);
-    data = updateSkillsOnTaskComplete(data, allCompleted);
+    data = updateSkillsOnTaskComplete(data);
     if (allCompleted) {
       data = updateAllCompleteSkill(data);
     }

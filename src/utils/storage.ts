@@ -202,12 +202,8 @@ export const addSkillPoints = (
 };
 
 // タスク完了時にスキルを更新
-export const updateSkillsOnTaskComplete = (
-  data: AppData,
-  isAllComplete: boolean
-): AppData => {
+export const updateSkillsOnTaskComplete = (data: AppData): AppData => {
   const now = new Date();
-  const hour = now.getHours();
 
   // 継続力: タスクを完了すると常にポイント獲得
   const persistenceResult = addSkillPoints(data.skills.persistence, 1);
