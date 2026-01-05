@@ -15,7 +15,7 @@
 
 .modal-content {
   background: white;
-  border-radius: 24px;
+  border-radius: 20px;
   padding: 2rem;
   max-width: 500px;
   width: 100%;
@@ -48,7 +48,7 @@
   padding: 1rem;
   font-size: 1.2rem;
   border: 2px solid #e0e0e0;
-  border-radius: 12px;
+  border-radius: 20px;
   outline: none;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
@@ -73,7 +73,7 @@
   aspect-ratio: 1;
   font-size: 2rem;
   border: 2px solid #e0e0e0;
-  border-radius: 12px;
+  border-radius: 20px;
   background: white;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -106,7 +106,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   border: none;
-  border-radius: 12px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
