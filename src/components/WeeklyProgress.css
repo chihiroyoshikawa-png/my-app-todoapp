@@ -66,9 +66,8 @@
 }
 
 .day-dot.incomplete {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dot-glow {
