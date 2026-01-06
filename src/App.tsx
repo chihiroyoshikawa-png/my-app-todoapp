@@ -19,7 +19,8 @@ import {
   updateSkillsOnTaskComplete,
   updateChallengeSkill,
   updateAllCompleteSkill,
-  updateDailyLoginSkill
+  updateDailyLoginSkill,
+  resetSkills,
 } from './utils/storage';
 import './App.css';
 
@@ -176,6 +177,14 @@ function App() {
     saveCurrentData(tasks, newTemplates);
   };
 
+  // スキルリセット
+  const handleResetSkills = () => {
+    let data = loadData();
+    data = resetSkills(data);
+    saveData(data);
+    setSkills(data.skills);
+  };
+
   // 進捗計算
   const completedCount = tasks.filter((task) => task.completed).length;
   const totalCount = tasks.length;
@@ -284,7 +293,7 @@ function App() {
             </div>
           </>
         ) : (
-          <SkillGrowth skills={skills} />
+          <SkillGrowth skills={skills} onResetSkills={handleResetSkills} />
         )}
       </main>
 

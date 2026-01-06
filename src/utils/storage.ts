@@ -296,3 +296,12 @@ export const updateDailyLoginSkill = (data: AppData): AppData => {
     },
   };
 };
+
+// スキルをリセット
+export const resetSkills = (data: AppData): AppData => {
+  localStorage.removeItem(DAILY_LOGIN_KEY);
+  return {
+    ...data,
+    skills: getDefaultSkills(),
+  };
+};

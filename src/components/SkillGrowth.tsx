@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Skill } from '../types';
 import './SkillGrowth.css';
 
@@ -10,11 +10,26 @@ interface SkillGrowthProps {
     organization: Skill;
     challenge: Skill;
   };
+  onResetSkills?: () => void;
 }
 
-export const SkillGrowth: React.FC<SkillGrowthProps> = ({ skills }) => {
+export const SkillGrowth: React.FC<SkillGrowthProps> = ({ skills, onResetSkills }) => {
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   // スキルの配列に変換
   const skillArray = Object.values(skills);
+
+  const handleResetClick = () => {
+    setShowResetConfirm(true);
+  };
+
+  const handleConfirmReset = () => {
+    onResetSkills?.();
+    setShowResetConfirm(false);
+  };
+
+  const handleCancelReset = () => {
+    setShowResetConfirm(false);
+  };
 
   return (
     <div className="skill-growth">
@@ -90,6 +105,34 @@ export const SkillGrowth: React.FC<SkillGrowthProps> = ({ skills }) => {
           </li>
         </ul>
       </div>
+
+      {onResetSkills && (
+        <div className="skill-reset-section">
+          <button className="reset-button" onClick={handleResetClick}>
+            スキルをリセット
+          </button>
+        </div>
+      )}
+
+      {showResetConfirm && (
+        <div className="reset-confirm-overlay" onClick={handleCancelReset}>
+          <div className="reset-confirm-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="reset-confirm-icon">⚠️</div>
+            <p className="reset-confirm-message">
+              スキルを全てリセットしますか？<br />
+              レベルとポイントが0になります。
+            </p>
+            <div className="reset-confirm-buttons">
+              <button className="reset-cancel-button" onClick={handleCancelReset}>
+                やめる
+              </button>
+              <button className="reset-ok-button" onClick={handleConfirmReset}>
+                リセットする
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

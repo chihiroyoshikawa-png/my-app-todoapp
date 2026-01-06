@@ -236,3 +236,125 @@
     font-size: 13px;
   }
 }
+
+/* リセットボタン */
+.skill-reset-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.reset-button {
+  font-family: 'Lato', sans-serif;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.4);
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background: rgba(255, 200, 200, 0.5);
+  color: #c44;
+  border-color: rgba(200, 100, 100, 0.3);
+}
+
+/* リセット確認ダイアログ */
+.reset-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+  padding: 1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.reset-confirm-dialog {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.reset-confirm-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.reset-confirm-message {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.reset-confirm-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.reset-cancel-button,
+.reset-ok-button {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-cancel-button {
+  background: rgba(240, 240, 240, 0.8);
+  color: #333;
+}
+
+.reset-cancel-button:hover {
+  background: rgba(230, 230, 230, 0.9);
+}
+
+.reset-ok-button {
+  background: linear-gradient(135deg, rgba(255, 150, 150, 0.6) 0%, rgba(255, 100, 100, 0.5) 100%);
+  color: #c44;
+  border-color: rgba(200, 100, 100, 0.3);
+}
+
+.reset-ok-button:hover {
+  background: linear-gradient(135deg, rgba(255, 130, 130, 0.7) 0%, rgba(255, 80, 80, 0.6) 100%);
+}
