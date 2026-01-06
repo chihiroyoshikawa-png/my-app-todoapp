@@ -185,6 +185,12 @@ function App() {
     setSkills(data.skills);
   };
 
+  // タスク並べ替え
+  const handleReorderTasks = (newTasks: Task[]) => {
+    setTasks(newTasks);
+    saveCurrentData(newTasks, templates);
+  };
+
   // 進捗計算
   const completedCount = tasks.filter((task) => task.completed).length;
   const totalCount = tasks.length;
@@ -272,6 +278,7 @@ function App() {
           tasks={tasks}
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
+          onReorderTasks={handleReorderTasks}
         />
 
             <TaskSuggestion

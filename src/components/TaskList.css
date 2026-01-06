@@ -35,6 +35,33 @@
   border-color: rgba(0, 0, 0, 0.15);
 }
 
+/* ドラッグ&ドロップ */
+.task-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.task-item.drag-over {
+  border-color: #ff9a56;
+  border-style: dashed;
+  background: rgba(255, 154, 86, 0.1);
+}
+
+.drag-handle {
+  cursor: grab;
+  color: #999;
+  font-size: 1rem;
+  padding: 0.2rem;
+  user-select: none;
+  flex-shrink: 0;
+  letter-spacing: -2px;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
 .task-item.completed {
   opacity: 0.5;
   background: rgba(168, 197, 212, 0.15);
